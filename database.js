@@ -33,8 +33,7 @@ function buildQuery(params) {
   if (params.select) q.set('select', params.select);
   if (params.order) q.set('order', params.order);
   if (params.limit) q.set('limit', params.limit);
-  if (params.id) q.set('id', `eq.${params.id}`);
-  return q.toString();
+    return q.toString();
 }
 
 const dbHelpers = {
@@ -55,8 +54,8 @@ const dbHelpers = {
 
   deleteInquiry: async (id) => {
     if (!API_URL || !supabaseKey) return unavailable();
-    await apiFetch(`/inquiries?id=eq.${id}`, { method: 'DELETE' });
-    return 1;
+    const rows = await apiFetch(`/inquiries?id=eq.${encodeURIComponent(id)}`, { method: 'DELETE' });
+    return rows ? rows.length : 0;
   },
 
   saveProperty: async (property) => {
@@ -76,9 +75,9 @@ const dbHelpers = {
 
   deleteProperty: async (id) => {
     if (!API_URL || !supabaseKey) return unavailable();
-    const rows = await apiFetch(`/properties?id=eq.${id}&select=images`);
+    const rows = await apiFetch(`/properties?id=eq.${encodeURIComponent(id)}&select=images`);
     if (!rows || rows.length === 0) return { changes: 0, images: [] };
-    await apiFetch(`/properties?id=eq.${id}`, { method: 'DELETE' });
+    await apiFetch(`/properties?id=eq.${encodeURIComponent(id)}`, { method: 'DELETE' });
     return { changes: 1, images: rows[0].images || [] };
   },
 };

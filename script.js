@@ -201,18 +201,21 @@ document.addEventListener('DOMContentLoaded', () => {
         
         Object.assign(toast.style, {
             position: 'fixed',
-            bottom: '3rem',
+            bottom: '6rem',
             left: '50%',
             transform: 'translateX(-50%) translateY(20px)',
-            background: 'rgba(212, 175, 55, 0.95)',
-            color: '#07090e',
-            padding: '1.25rem 2.5rem',
-            borderRadius: '30px',
-            fontSize: '0.95rem',
+            width: 'max-content',
+            maxWidth: 'calc(100vw - 32px)',
+            background: '#0F1F24',
+            color: '#FFFFFF',
+            borderLeft: '4px solid #0B6E63',
+            padding: '0.9rem 1.25rem',
+            borderRadius: '12px',
+            fontSize: '0.9375rem',
+            lineHeight: '1.45',
             fontWeight: '600',
-            fontFamily: "'Inter', sans-serif",
-            letterSpacing: '0.5px',
-            boxShadow: '0 15px 40px rgba(212, 175, 55, 0.3)',
+            fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+            boxShadow: '0 12px 32px rgba(15, 31, 36, 0.25)',
             zIndex: '10000',
             opacity: '0',
             transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -336,8 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxFiles = 5;
         
         Array.from(files).forEach(file => {
-            if (!file.type.startsWith('image/')) {
-                showNotification("Only image files are allowed.");
+            if (!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)) {
+                showNotification("Only JPG, PNG, WebP or GIF images are allowed.");
                 return;
             }
             if (uploadedFilesList.length >= maxFiles) {
@@ -509,8 +512,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleWizardFiles(files) {
         Array.from(files).forEach(file => {
-            if (!file.type.startsWith('image/')) {
-                showNotification('Only image files are allowed.');
+            if (!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)) {
+                showNotification('Only JPG, PNG, WebP or GIF images are allowed.');
                 return;
             }
             if (wizardFiles.length >= 5) {
@@ -608,6 +611,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
+    function escapeHTML(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
     function buildReview() {
         const reviewContainer = document.getElementById('js-wizard-review-content');
         if (!reviewContainer) return;
@@ -637,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             html += `<div class="wizard-review-item">
                 <span class="wizard-review-item-label">${f.label}</span>
-                <span class="wizard-review-item-value">${val}</span>
+                <span class="wizard-review-item-value">${escapeHTML(val)}</span>
             </div>`;
         });
 
@@ -646,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amenityValues = Array.from(checkedAmenities).map(c => c.value);
         html += `<div class="wizard-review-item">
             <span class="wizard-review-item-label">Amenities</span>
-            <span class="wizard-review-item-value">${amenityValues.length ? amenityValues.join(', ') : 'None selected'}</span>
+            <span class="wizard-review-item-value">${amenityValues.length ? escapeHTML(amenityValues.join(', ')) : 'None selected'}</span>
         </div>`;
 
         // Add photos count
@@ -661,7 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = id.replace('wiz-', '').replace(/-/g, ' ');
             html += `<div class="wizard-review-item">
                 <span class="wizard-review-item-label">${label.charAt(0).toUpperCase() + label.slice(1)}</span>
-                <span class="wizard-review-item-value">${el ? el.value || 'Not provided' : 'Not provided'}</span>
+                <span class="wizard-review-item-value">${el ? escapeHTML(el.value) || 'Not provided' : 'Not provided'}</span>
             </div>`;
         });
 
@@ -752,7 +759,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Clear validation styling on input
     document.querySelectorAll('.wizard-panel input, .wizard-panel select, .wizard-panel textarea').forEach(el => {
-        el.addEventListener('input', () => { el.style.borderColor = ''; });
+        el.addEventListener('input', () => {
+            el.style.borderColor = '';
+            // Contact fields live on the same step as the review, so keep it in sync
+            if (el.closest('.wizard-panel[data-step="5"]')) buildReview();
+        });
         el.addEventListener('change', () => { el.style.borderColor = ''; });
     });
 

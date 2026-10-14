@@ -286,8 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (firstImg) {
                 imageBox = `
                     <div class="property-image-box prop-gallery-box">
-                        <img src="${firstImg}" alt="${escapeHTML(prop.property_name)}" class="property-img prop-gallery-img" data-prop-id="${prop.id}">
-                        <span class="property-tag" style="background: var(--color-gold); color: #000; font-weight:700;">${escapeHTML(prop.property_type)}</span>
+                        <img src="${escapeHTML(firstImg)}" alt="${escapeHTML(prop.property_name)}" class="property-img prop-gallery-img" data-prop-id="${prop.id}">
+                        <span class="property-tag" style="background: var(--color-gold); color: #fff; font-weight:700;">${escapeHTML(prop.property_type)}</span>
                         ${imgCount > 1 ? `<span class="prop-gallery-counter">1 of ${imgCount}</span>` : ''}
                     </div>
                 `;
@@ -478,8 +478,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // HTML Escape utility to prevent XSS injection
     function escapeHTML(str) {
-        if (!str) return '';
-        return str
+        if (str == null || str === '') return '';
+        return String(str)
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
