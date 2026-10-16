@@ -6,3 +6,6 @@ node_modules/
 !.env.example
 .claude/
 .design-backup/
+
+# Local source material (large media, drafts)
+resources/

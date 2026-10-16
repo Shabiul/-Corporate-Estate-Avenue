@@ -47,9 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
             navMenu.classList.remove('open');
             navToggle.classList.remove('active');
             lockBodyScroll(false);
-            const servicesDropdown = document.querySelector('.mega-menu.show');
+            const servicesDropdown = document.getElementById('js-nav-dropdown');
             if (servicesDropdown) {
-                servicesDropdown.classList.remove('show');
+                servicesDropdown.classList.remove('open');
+                const t = document.getElementById('link-services');
+                if (t) t.setAttribute('aria-expanded', 'false');
             }
         }
 
@@ -63,15 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                if (link.classList.contains('dropdown-toggle') && isMobile()) {
-                    e.preventDefault();
-                    const megaMenu = link.nextElementSibling;
-                    if (megaMenu) {
-                        megaMenu.classList.toggle('show');
-                        link.classList.toggle('active-dropdown');
-                    }
-                    return;
-                }
+                if (link.classList.contains('dropdown-toggle')) return; // handled in nav.js
                 closeMobileMenu();
             });
         });
@@ -120,7 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    window.addEventListener('scroll', scrollSpy);
+    let spyQueued = false;
+    window.addEventListener('scroll', () => {
+        if (spyQueued) return;
+        spyQueued = true;
+        requestAnimationFrame(() => { spyQueued = false; scrollSpy(); });
+    }, { passive: true });
     scrollSpy(); // Run once on load to highlight active section
 
     // 4. Parallax Background Hover (Desktop only)
@@ -154,24 +153,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
-            const service = document.getElementById('service').value;
-            const message = document.getElementById('message').value;
+            const checked = (n) => Array.from(contactForm.querySelectorAll(`input[name="${n}"]:checked`)).map((c) => c.value);
+            const payload = {
+                name, email, phone,
+                enquiryFor: (contactForm.querySelector('input[name="enq-for"]:checked') || {}).value || 'Purchase',
+                propertyTypes: checked('enq-type'),
+                configurations: checked('enq-config'),
+                location: document.getElementById('enq-location').value,
+                budget: document.getElementById('enq-budget').value,
+                requirements: document.getElementById('enq-requirements').value,
+                projectPreferences: document.getElementById('enq-project').value,
+                consent: document.getElementById('contact-consent').checked
+            };
 
             // Set loading state
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending Inquiry...';
+            submitBtn.textContent = 'Sending enquiry...';
             
             fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name, email, phone, service, message })
+                body: JSON.stringify(payload)
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showNotification(`Thank you, ${name}! Your inquiry has been sent to Sajjad Pasha.`);
+                    showNotification(`Thank you, ${name}! Your enquiry has been sent to Sajjad Pasha.`);
                     contactForm.reset();
                 } else {
                     showNotification(data.message || 'Something went wrong. Please try again.');
@@ -237,6 +246,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
+    // Client-side photo optimiser: resizes to 1600px WebP (plus a 640px cover thumbnail) before upload.
+    // Keeps each listing around 1 MB instead of 10-25 MB, which protects the free-tier storage,
+    // bandwidth and the 4.5 MB request limit on Vercel.
+    async function loadBitmap(file) {
+        try {
+            return await createImageBitmap(file, { imageOrientation: 'from-image' });
+        } catch (e) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = URL.createObjectURL(file);
+            });
+        }
+    }
+
+    async function resizeToFile(bitmap, maxDim, quality, name) {
+        const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+        canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+        canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        let blob = await new Promise((r) => canvas.toBlob(r, 'image/webp', quality));
+        if (!blob || blob.type !== 'image/webp') blob = await new Promise((r) => canvas.toBlob(r, 'image/jpeg', quality));
+        return new File([blob], name + (blob.type === 'image/webp' ? '.webp' : '.jpg'), { type: blob.type });
+    }
+
+    async function optimiseImages(files) {
+        const bitmaps = [];
+        for (const f of files) bitmaps.push(await loadBitmap(f));
+        let images = [];
+        for (const [dim, q] of [[1600, 0.8], [1280, 0.7], [1024, 0.6]]) {
+            images = [];
+            for (let i = 0; i < bitmaps.length; i++) images.push(await resizeToFile(bitmaps[i], dim, q, 'photo-' + (i + 1)));
+            if (images.reduce((n, f) => n + f.size, 0) <= 3.8 * 1024 * 1024) break; // stay under the 4.5 MB request cap
+        }
+        const thumb = bitmaps.length ? await resizeToFile(bitmaps[0], 640, 0.72, 'thumb') : null;
+        bitmaps.forEach((b) => b.close && b.close());
+        return { images, thumb };
+    }
+
     // 6. Upload Property Modal Controls
     const uploadModal = document.getElementById('js-upload-modal');
     const modalCloseBtn = document.getElementById('js-modal-close');
@@ -256,10 +306,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navMenu && navMenu.classList.contains('open')) {
                 navMenu.classList.remove('open');
                 if (navToggle) navToggle.classList.remove('active');
-                const servicesDropdown = document.querySelector('.mega-menu');
-                if (servicesDropdown) {
-                    servicesDropdown.classList.remove('show');
-                }
+                const servicesDropdown = document.getElementById('js-nav-dropdown');
+                if (servicesDropdown) servicesDropdown.classList.remove('open');
             }
         }
     }
@@ -369,11 +417,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const img = document.createElement('img');
             img.alt = file.name;
             
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+            img.src = URL.createObjectURL(file);
+            img.onload = () => URL.revokeObjectURL(img.src);
 
             const removeBtn = document.createElement('button');
             removeBtn.type = 'button';
@@ -419,15 +464,19 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('property-bhk', document.getElementById('property-bhk').value);
             formData.append('property-price', document.getElementById('property-price').value);
             formData.append('property-description', document.getElementById('property-description').value);
+            formData.append('consent', document.getElementById('uploader-consent').checked ? 'yes' : '');
+            formData.append('listing-type', document.getElementById('uploader-listing-type').value);
 
-            // Append uploaded files
-            uploadedFilesList.forEach((file) => {
-                formData.append('images', file);
-            });
-
-            fetch('/api/upload', {
-                method: 'POST',
-                body: formData
+            submitBtn.textContent = uploadedFilesList.length ? 'Optimising photos...' : 'Uploading Property...';
+            optimiseImages(uploadedFilesList)
+            .then((parts) => {
+                parts.images.forEach((file) => formData.append('images', file));
+                if (parts.thumb) formData.append('thumb', parts.thumb);
+                submitBtn.textContent = 'Uploading Property...';
+                return fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
             })
             .then(response => response.json())
             .then(data => {
@@ -449,26 +498,115 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. BHK Filter Tabs (Buy Property)
+    // 7. Live listings (approved by an admin) + BHK filter, rendered 12 at a time
+    const buyGrid = document.getElementById('js-buy-grid');
+    const rentGrid = document.getElementById('js-rent-grid');
     const filterTabs = document.querySelectorAll('.filter-tab');
-    const buyCards = document.querySelectorAll('#js-buy-grid .property-card');
+    const PAGE_SIZE = 12;
+    let saleList = [], rentList = [], salePage = 1, rentPage = 1, saleBhk = 'all';
 
-    filterTabs.forEach(tab => {
+    const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const fmtPrice = (p) => { const t = String(p || '').trim(); return /^\d/.test(t) ? '\u20B9' + t : t; };
+    const bhkOf = (p) => { const m = String(p.property_bhk || '').match(/(\d+)\s*bhk/i) || String(p.property_bhk || '').match(/^\s*(\d+)/); return m ? m[1] : ''; };
+    const safeImg = (u) => (typeof u === 'string' && /^(https:\/\/|\/uploads\/)/.test(u)) ? u : '';
+    const splitSpecs = (s) => String(s || '').split(/\s*\|\s*|,\s+/).filter(Boolean);
+
+    function listingCard(p, eager) {
+        const tag = p.listing_type === 'Sale' ? 'For sale' : (p.listing_type === 'Lease' ? 'For lease' : 'For rent');
+        // cards use the small cover thumbnail; older listings fall back to the first full photo
+        const img = safeImg(p.cover_thumb || (p.images && p.images[0]));
+        const specs = splitSpecs(p.property_bhk).slice(0, 4).map((s) => '<li>' + esc(s) + '</li>').join('');
+        const wa = 'https://wa.me/919880011922?text=' + encodeURIComponent('Hi Sajjad, I\'m interested in ' + p.property_name + ' (' + fmtPrice(p.property_price) + ').');
+        return '<article class="property-card" data-bhk="' + esc(bhkOf(p)) + '">' +
+            '<div class="property-image-box">' + (img ? '<img src="' + esc(img) + '" alt="' + esc(p.property_name) + '" class="property-img" ' + (eager ? '' : 'loading="lazy" ') + 'decoding="async" width="640" height="480">' : '<div class="property-img property-img--empty"></div>') +
+            '<span class="property-tag">' + tag + '</span></div>' +
+            '<div class="property-content"><div class="price-row"><p class="property-price">' + esc(fmtPrice(p.property_price)) + '</p>' +
+            '<span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Reviewed</span></div>' +
+            '<h4 class="property-title">' + esc(p.property_name) + '</h4>' +
+            '<p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>' + esc(p.property_location) + '</p>' +
+            (specs ? '<ul class="property-specs">' + specs + '</ul>' : '') +
+            '<div class="card-actions"><a href="#contact" class="btn btn-teal btn-sm">Enquire</a>' +
+            '<a href="' + esc(wa) + '" target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about ' + esc(p.property_name) + ' on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a></div></div></article>';
+    }
+
+    function emptyNote(text) {
+        return '<div class="listing-empty"><p>' + text + '</p><a href="#contact" class="btn btn-teal btn-sm">Tell us what you need</a></div>';
+    }
+
+    function moreButton(group, remaining) {
+        return '<div class="listing-more"><button type="button" class="btn btn-ghost" data-more="' + group + '">Show more (' + remaining + ')</button></div>';
+    }
+
+    function renderSale() {
+        if (!buyGrid) return;
+        const tabs = document.getElementById('js-bhk-filter');
+        if (tabs) tabs.style.display = saleList.length ? '' : 'none';
+        if (!saleList.length) {
+            buyGrid.innerHTML = emptyNote('No homes for sale are live right now. Tell Sajjad what you are looking for and he will send a shortlist.');
+            return;
+        }
+        const matches = saleList.filter((p) => saleBhk === 'all' || bhkOf(p) === saleBhk);
+        if (!matches.length) {
+            buyGrid.innerHTML = emptyNote('No ' + saleBhk + ' BHK homes for sale right now.');
+            return;
+        }
+        const shown = matches.slice(0, salePage * PAGE_SIZE);
+        buyGrid.innerHTML = shown.map((p, i) => listingCard(p, i < 2)).join('') + (matches.length > shown.length ? moreButton('sale', matches.length - shown.length) : '');
+        if (salePage === 1) buyGrid.scrollLeft = 0;
+    }
+
+    function renderRent() {
+        if (!rentGrid) return;
+        const request = rentGrid.querySelector('.request-card');
+        if (!rentList.length) {
+            rentGrid.innerHTML = emptyNote('No rentals are live right now. Tell Sajjad your budget and area and he will find one.');
+        } else {
+            const shown = rentList.slice(0, rentPage * PAGE_SIZE);
+            rentGrid.innerHTML = shown.map((p) => listingCard(p, false)).join('') + (rentList.length > shown.length ? moreButton('rent', rentList.length - shown.length) : '');
+        }
+        if (request) rentGrid.appendChild(request);
+        rentGrid.scrollLeft = 0; // scroll-snap would otherwise stay on the request card after re-render
+    }
+
+    filterTabs.forEach((tab) => {
         tab.addEventListener('click', () => {
-            filterTabs.forEach(t => t.classList.remove('active'));
+            filterTabs.forEach((t) => t.classList.remove('active'));
             tab.classList.add('active');
-
-            const selectedBhk = tab.getAttribute('data-bhk');
-
-            buyCards.forEach(card => {
-                if (selectedBhk === 'all' || card.getAttribute('data-bhk') === selectedBhk) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            saleBhk = tab.getAttribute('data-bhk');
+            salePage = 1;
+            renderSale();
         });
     });
+
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-more]');
+        if (!btn) return;
+        if (btn.getAttribute('data-more') === 'sale') { salePage++; renderSale(); } else { rentPage++; renderRent(); }
+    });
+
+    function renderListings(list) {
+        saleList = list.filter((p) => p.listing_type === 'Sale');
+        rentList = list.filter((p) => p.listing_type !== 'Sale');
+        renderSale();
+        renderRent();
+        const latest = list[0];
+        const hero = document.getElementById('js-hero-listing');
+        if (hero && latest) {
+            const img = safeImg(latest.cover_thumb || (latest.images && latest.images[0]));
+            const himg = document.getElementById('js-hero-listing-img');
+            if (img) { himg.src = img; himg.hidden = false; } else { himg.hidden = true; }
+            document.getElementById('js-hero-listing-price').textContent = fmtPrice(latest.property_price);
+            document.getElementById('js-hero-listing-meta').textContent = [splitSpecs(latest.property_bhk)[0], latest.property_location].filter(Boolean).join(' \u00B7 ');
+            hero.hidden = false;
+        }
+    }
+
+    if (buyGrid || rentGrid) {
+        fetch('/api/properties')
+            .then((r) => r.json())
+            .then((d) => renderListings(d && d.success ? d.data : []))
+            .catch(() => renderListings([]));
+    }
 
     // 8. Multi-Step Property Listing Wizard
     const wizardForm = document.getElementById('js-wizard-form');
@@ -535,9 +673,8 @@ document.addEventListener('DOMContentLoaded', () => {
             el.className = 'file-preview-item';
             const img = document.createElement('img');
             img.alt = file.name;
-            const reader = new FileReader();
-            reader.onload = (e) => { img.src = e.target.result; };
-            reader.readAsDataURL(file);
+            img.src = URL.createObjectURL(file);
+            img.onload = () => URL.revokeObjectURL(img.src);
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'file-preview-remove';
@@ -711,6 +848,11 @@ document.addEventListener('DOMContentLoaded', () => {
         wizardForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            if (!document.getElementById('wiz-consent').checked) {
+                showNotification('Please accept the Terms & Conditions and Privacy Policy to continue.');
+                return;
+            }
+
             const btn = submitBtn;
             const origText = btn.textContent;
             btn.disabled = true;
@@ -734,9 +876,17 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('property-price', document.getElementById('wiz-price').value);
             formData.append('property-description', (description ? description.value : '') + '\n\nTransaction: ' + (transaction ? transaction.value : '') + '\nCategory: ' + (category ? category.value : '') + '\nFurnishing: ' + (document.getElementById('wiz-furnishing').value || 'N/A') + '\nFloor: ' + (document.getElementById('wiz-floor').value || 'N/A') + '\nAge: ' + (age ? age.value : 'N/A') + '\nBathrooms: ' + (document.getElementById('wiz-bathrooms').value || 'N/A') + '\nAmenities: ' + amenityList);
 
-            wizardFiles.forEach(f => formData.append('images', f));
+            formData.append('consent', document.getElementById('wiz-consent').checked ? 'yes' : '');
+            formData.append('listing-type', transaction ? transaction.value : 'Sale');
 
-            fetch('/api/upload', { method: 'POST', body: formData })
+            btn.textContent = wizardFiles.length ? 'Optimising photos...' : 'Submitting...';
+            optimiseImages(wizardFiles)
+                .then((parts) => {
+                    parts.images.forEach((f) => formData.append('images', f));
+                    if (parts.thumb) formData.append('thumb', parts.thumb);
+                    btn.textContent = 'Submitting...';
+                    return fetch('/api/upload', { method: 'POST', body: formData });
+                })
                 .then(r => r.json())
                 .then(data => {
                     if (data.success) {

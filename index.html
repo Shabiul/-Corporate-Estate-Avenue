@@ -19,23 +19,23 @@
     <meta property="og:url" content="https://corporateestateavenue.com">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Corporate Estate Avenue">
-    <meta property="og:image" content="https://corporateestateavenue.com/bangalore_skyline.png">
+    <meta property="og:image" content="https://corporateestateavenue.com/og-image.jpg">
     <meta property="og:locale" content="en_IN">
     
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Corporate Estate Avenue | Premium Real Estate Consulting Bangalore">
     <meta name="twitter:description" content="Premium Property Management & Real Estate Consulting Services in Bangalore. Trusted partner for buying, selling, renting, and relocating.">
-    <meta name="twitter:image" content="https://corporateestateavenue.com/bangalore_skyline.png">
+    <meta name="twitter:image" content="https://corporateestateavenue.com/og-image.jpg">
     
     <title>Corporate Estate Avenue | Premium Real Estate Consulting Bangalore</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="icon-192.png">
     
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3">
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -43,8 +43,8 @@
         "@context": "https://schema.org",
         "@type": "RealEstateAgent",
         "name": "Corporate Estate Avenue",
-        "image": "https://corporateestateavenue.com/bangalore_skyline.png",
-        "logo": "https://corporateestateavenue.com/bangalore_skyline.png",
+        "image": "https://corporateestateavenue.com/og-image.jpg",
+        "logo": "https://corporateestateavenue.com/og-image.jpg",
         "url": "https://corporateestateavenue.com",
         "telephone": "+919880011922",
         "email": "sajjad@corporateestateavenue.com",
@@ -85,7 +85,7 @@
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Corporate Estate Avenue",
-        "image": "https://corporateestateavenue.com/bangalore_skyline.png",
+        "image": "https://corporateestateavenue.com/og-image.jpg",
         "telephone": "+919880011922",
         "email": "sajjad@corporateestateavenue.com",
         "address": {
@@ -212,36 +212,26 @@
     <header class="navbar-container">
         <nav class="navbar" aria-label="Main Navigation">
             <a href="#home" class="logo" aria-label="Corporate Estate Avenue, home">
-                <img src="logo.png" alt="Corporate Estate Avenue" class="logo-img" width="1196" height="611">
+                <img src="logo-360.webp" alt="Corporate Estate Avenue" class="logo-img" width="360" height="184">
             </a>
 
             <ul class="nav-menu" id="js-nav-menu">
                 <li><a href="#properties" class="nav-link" id="link-properties">Listings</a></li>
                 <li><a href="#sell-property" class="nav-link" id="link-sell">Sell or rent out</a></li>
                 <li class="nav-item-dropdown" id="js-nav-dropdown">
-                    <a href="#services" class="nav-link dropdown-toggle" id="link-services" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="nav-link dropdown-toggle" id="link-services" aria-haspopup="true" aria-expanded="false" aria-controls="js-services-menu">
                         Services <svg class="dropdown-caret" aria-hidden="true"><use href="#i-chevron"/></svg>
-                    </a>
-                    <div class="mega-menu" aria-label="Services Submenu">
+                    </button>
+                    <div class="mega-menu" id="js-services-menu">
                         <div class="mega-menu-grid">
-                            <div class="mega-menu-col">
-                                <p class="mega-menu-title">Looking for a property</p>
-                                <ul class="mega-menu-list">
-                                    <li><a href="#buy-property" class="mega-menu-item"><strong>Buy a home</strong><span>Verified apartments and villas</span></a></li>
-                                    <li><a href="#rent-property" class="mega-menu-item"><strong>Rent a home or office</strong><span>Homes, offices and fit-outs</span></a></li>
-                                    <li><a href="#services" class="mega-menu-item" data-service="nri-expat"><strong>NRI &amp; expat assistance</strong><span>Search, paperwork and settling in</span></a></li>
-                                    <li><a href="#services" class="mega-menu-item" data-service="reloc"><strong>Corporate relocation</strong><span>Offices and staff housing</span></a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-menu-col">
-                                <p class="mega-menu-title">Own a property</p>
-                                <ul class="mega-menu-list">
-                                    <li><a href="#sell-property" class="mega-menu-item"><strong>Sell your property</strong><span>Listing, buyers and negotiation</span></a></li>
-                                    <li><a href="#sell-property" class="mega-menu-item"><strong>Rent it out</strong><span>Tenant search and agreements</span></a></li>
-                                    <li><a href="#services" class="mega-menu-item" data-service="pm"><strong>Property management</strong><span>Inspections, rent and repairs</span></a></li>
-                                    <li><a href="#services" class="mega-menu-item" data-service="owner-rep"><strong>Owner &amp; client representation</strong><span>Someone on your side of the table</span></a></li>
-                                </ul>
-                            </div>
+                            <p class="mega-menu-title">Client services</p>
+                            <ul class="mega-menu-list">
+                            <li><a href="/services/owner-representation" class="mega-menu-item"><strong>Owner Representation</strong><span>Rent or sell, and have it managed well</span></a></li>
+                            <li><a href="/services/client-representation" class="mega-menu-item"><strong>Client Representation</strong><span>Someone on your side of the table</span></a></li>
+                            <li><a href="/services/nri-expat" class="mega-menu-item"><strong>NRI &amp; Expat Services</strong><span>Search, paperwork and settling in</span></a></li>
+                            <li><a href="/services/corporate-relocation" class="mega-menu-item"><strong>Corporate Relocation</strong><span>Offices and staff housing</span></a></li>
+                            </ul>
+                            <a href="#services" class="mega-menu-all">View all client services <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
                         </div>
                     </div>
                 </li>
@@ -278,7 +268,7 @@
         <div class="container hero-grid">
             <div class="hero-copy">
                 <div class="byline-chip">
-                    <img src="sajjad_pasha.jpg" alt="" width="28" height="28">
+                    <img src="sajjad_pasha-144.webp" alt="" width="28" height="28">
                     <span>Sajjad Pasha · BTM Layout, Bangalore</span>
                 </div>
 
@@ -289,7 +279,7 @@
                 <!-- TODO: replace the href values with the owner / buyer-renter form URLs -->
                 <div class="choice-cards" role="group" aria-labelledby="choice-label">
                     <a href="#" id="hero-owner-link" class="choice-card choice-card--owner">
-                        <img src="prop_villa.png" alt="" class="choice-thumb" width="64" height="64">
+                        <img src="prop_villa-128.webp" alt="" class="choice-thumb" width="64" height="64">
                         <span class="choice-text">
                             <strong>Property Owners</strong>
                             <span>Sell, rent out or get your property managed</span>
@@ -297,7 +287,7 @@
                         <span class="choice-arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
                     </a>
                     <a href="#" id="hero-seeker-link" class="choice-card choice-card--seeker">
-                        <img src="prop_apartment.png" alt="" class="choice-thumb" width="64" height="64">
+                        <img src="prop_apartment-128.webp" alt="" class="choice-thumb" width="64" height="64">
                         <span class="choice-text">
                             <strong>Property Seekers</strong>
                             <span>Buy or rent a verified home or office</span>
@@ -313,35 +303,80 @@
                     <li><span class="trust-figure"><span class="stat-number" data-target="350">350</span>+</span><span class="trust-label">satisfied clients</span></li>
                 </ul>
 
-                <!-- TODO: swap the text badges for the official BRAI and NAR India logo files -->
                 <div class="affiliations" aria-label="Memberships">
                     <span class="affiliations-label">Registered member of</span>
-                    <span class="affil-badge">BRAI</span>
-                    <span class="affil-badge">NAR India</span>
+                    <span class="affil-logos">
+                        <span class="affil-badge"><img src="brai-logo.jpeg" alt="Bangalore Realtors Association India (BRAI)" width="39" height="52" loading="lazy"></span>
+                        <span class="affil-badge"><img src="nar-india-logo.jpeg" alt="National Association of Realtors India (NAR India)" width="89" height="52" loading="lazy"></span>
+                    </span>
                 </div>
             </div>
 
             <div class="hero-media">
                 <div class="hero-frame">
-                    <img src="bangalore_skyline.png" alt="Bangalore skyline at dusk, seen from a high-rise balcony" class="hero-bg" width="1024" height="1024">
+                    <img src="bangalore_skyline-1024.webp" srcset="bangalore_skyline-640.webp 640w, bangalore_skyline-1024.webp 1024w" sizes="(max-width: 992px) 100vw, 560px" alt="Bangalore skyline at dusk, seen from a high-rise balcony" class="hero-bg" width="1024" height="1024" fetchpriority="high" decoding="async">
                 </div>
-                <div class="float-card float-listed" aria-hidden="true">
-                    <img src="prop_apartment.png" alt="" width="56" height="56">
+                <div class="float-card float-listed" id="js-hero-listing" hidden>
+                    <img src="" alt="" width="56" height="56" id="js-hero-listing-img">
                     <div>
                         <span class="float-kicker"><i></i>Just listed</span>
-                        <strong>₹2.45 Cr</strong>
-                        <span class="float-meta">3 BHK · Whitefield</span>
+                        <strong id="js-hero-listing-price"></strong>
+                        <span class="float-meta" id="js-hero-listing-meta"></span>
                     </div>
                 </div>
                 <figure class="float-card float-quote">
                     <blockquote>“I review every listing myself before it goes live.”</blockquote>
                     <figcaption>
-                        <img src="sajjad_pasha.jpg" alt="" width="36" height="36">
+                        <img src="sajjad_pasha-144.webp" alt="" width="36" height="36">
                         <span><strong>Sajjad Pasha</strong>Founder</span>
                     </figcaption>
                 </figure>
             </div>
         </div>
+    </section>
+
+    <!-- CLIENT SERVICES -->
+    <section id="services" class="section client-services">
+        <div class="container">
+            <div class="section-head">
+                <p class="svc-kicker">Client services</p>
+                <h2 class="section-title">One adviser for every property decision</h2>
+                <p class="section-lede">Whether you are buying, selling, moving a team or managing from abroad, the same person handles it. Choose the service that fits you.</p>
+            </div>
+            <ul class="svc-cards">
+                <li><a href="/services/owner-representation" class="svc-card">
+                    <span class="svc-num">01</span>
+                    <h3 class="svc-card-title">Owner Representation</h3>
+                    <p>Your property listed at the price and terms you set, with screened tenants and buyers, negotiation and ongoing management.</p>
+                    <span class="svc-more">Learn more <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+                </a></li>
+                <li><a href="/services/client-representation" class="svc-card">
+                    <span class="svc-num">02</span>
+                    <h3 class="svc-card-title">Client Representation</h3>
+                    <p>A professional representing you in the search, negotiation and verification, whether you are buying or renting.</p>
+                    <span class="svc-more">Learn more <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+                </a></li>
+                <li><a href="/services/nri-expat" class="svc-card">
+                    <span class="svc-num">03</span>
+                    <h3 class="svc-card-title">NRI &amp; Expat Services</h3>
+                    <p>Buy, rent out or look after a Bangalore property while you are overseas, with regular updates and a point of contact here.</p>
+                    <span class="svc-more">Learn more <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+                </a></li>
+                <li><a href="/services/corporate-relocation" class="svc-card">
+                    <span class="svc-num">04</span>
+                    <h3 class="svc-card-title">Corporate Relocation</h3>
+                    <p>Office search and fit-out coordination, plus housing for staff moving to Bangalore, handled by one team.</p>
+                    <span class="svc-more">Learn more <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="container areas">
+            <p class="areas-label">Areas we work in</p>
+            <ul class="areas-list">
+                <li>BTM Layout</li><li>Koramangala</li><li>HSR Layout</li><li>Indiranagar</li><li>Whitefield</li><li>Sarjapur Road</li><li>Electronic City</li><li>JP Nagar</li><li>Jayanagar</li><li>Bannerghatta Road</li><li>MG Road</li><li>Marathahalli</li><li>Hebbal</li><li>Yelahanka</li><li>Bellary Road</li>
+            </ul>
+        </div>
+
     </section>
 
     <!-- 1. VERIFIED LISTINGS -->
@@ -350,7 +385,7 @@
             <div class="section-head section-head--split">
                 <div>
                     <h2 class="section-title">Verified listings</h2>
-                    <p class="section-lede">Every property here has had its title and documents checked before it went live.</p>
+                    <p class="section-lede">Every property here has been reviewed by our team before it goes live.</p>
                 </div>
                 <a href="#contact" class="link-arrow">Tell us what you're looking for <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
@@ -367,82 +402,6 @@
                 </div>
 
                 <div class="card-row buy-grid" id="js-buy-grid">
-                    <article class="property-card" data-bhk="3" data-type="sale">
-                        <div class="property-image-box">
-                            <img src="prop_apartment.png" alt="Luxury apartment in Whitefield" class="property-img" loading="lazy" width="1024" height="1024">
-                            <span class="property-tag">For sale</span>
-                        </div>
-                        <div class="property-content">
-                            <div class="price-row">
-                                <p class="property-price">₹2.45 Cr</p>
-                                <span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Title verified</span>
-                            </div>
-                            <h4 class="property-title">Luxury Apartment in Whitefield</h4>
-                            <p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>Whitefield, Bangalore</p>
-                            <ul class="property-specs"><li>3 BHK</li><li>2,200 sq.ft</li><li>2 parking</li></ul>
-                            <div class="card-actions">
-                                <a href="#contact" class="btn btn-teal btn-sm">Enquire</a>
-                                <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20interested%20in%20the%20Luxury%20Apartment%20in%20Whitefield%20(%E2%82%B92.45%20Cr)." target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about the Whitefield apartment on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="property-card" data-bhk="4" data-type="sale">
-                        <div class="property-image-box">
-                            <img src="prop_villa.png" alt="Villa on Sarjapur Road" class="property-img" loading="lazy" width="1024" height="1024">
-                            <span class="property-tag">For sale</span>
-                        </div>
-                        <div class="property-content">
-                            <div class="price-row">
-                                <p class="property-price">₹4.80 Cr</p>
-                                <span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Title verified</span>
-                            </div>
-                            <h4 class="property-title">Villa in Sarjapur Road</h4>
-                            <p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>Sarjapur Road, Bangalore</p>
-                            <ul class="property-specs"><li>4 BHK</li><li>3,800 sq.ft</li><li>3 parking</li></ul>
-                            <div class="card-actions">
-                                <a href="#contact" class="btn btn-teal btn-sm">Enquire</a>
-                                <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20interested%20in%20the%20Villa%20in%20Sarjapur%20Road%20(%E2%82%B94.80%20Cr)." target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about the Sarjapur Road villa on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="property-card" data-bhk="2" data-type="sale">
-                        <div class="property-image-box">
-                            <img src="prop_apartment.png" alt="Premium apartment in Electronic City" class="property-img" loading="lazy" width="1024" height="1024">
-                            <span class="property-tag">For sale</span>
-                        </div>
-                        <div class="property-content">
-                            <div class="price-row">
-                                <p class="property-price">₹1.85 Cr</p>
-                                <span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Title verified</span>
-                            </div>
-                            <h4 class="property-title">Premium Apartment in Electronic City</h4>
-                            <p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>Electronic City, Bangalore</p>
-                            <ul class="property-specs"><li>2 BHK</li><li>1,500 sq.ft</li><li>1 parking</li></ul>
-                            <div class="card-actions">
-                                <a href="#contact" class="btn btn-teal btn-sm">Enquire</a>
-                                <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20interested%20in%20the%20Premium%20Apartment%20in%20Electronic%20City%20(%E2%82%B91.85%20Cr)." target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about the Electronic City apartment on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="property-card" data-bhk="3" data-type="sale">
-                        <div class="property-image-box">
-                            <img src="prop_villa.png" alt="Garden villa in HSR Layout" class="property-img" loading="lazy" width="1024" height="1024">
-                            <span class="property-tag">For sale</span>
-                        </div>
-                        <div class="property-content">
-                            <div class="price-row">
-                                <p class="property-price">₹3.20 Cr</p>
-                                <span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Title verified</span>
-                            </div>
-                            <h4 class="property-title">Garden Villa in HSR Layout</h4>
-                            <p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>HSR Layout, Bangalore</p>
-                            <ul class="property-specs"><li>3 BHK</li><li>2,800 sq.ft</li><li>2 parking</li></ul>
-                            <div class="card-actions">
-                                <a href="#contact" class="btn btn-teal btn-sm">Enquire</a>
-                                <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20interested%20in%20the%20Garden%20Villa%20in%20HSR%20Layout%20(%E2%82%B93.20%20Cr)." target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about the HSR Layout villa on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-                            </div>
-                        </div>
-                    </article>
                 </div>
             </div>
 
@@ -450,66 +409,10 @@
                 <div class="listing-group-head">
                     <h3 class="listing-group-title">For rent &amp; lease</h3>
                 </div>
-                <div class="card-row rent-grid">
-                    <article class="property-card" data-type="rent">
-                        <div class="property-image-box">
-                            <img src="prop_commercial.png" alt="Commercial office in Indiranagar" class="property-img" loading="lazy" width="1024" height="1024">
-                            <span class="property-tag">For lease</span>
-                        </div>
-                        <div class="property-content">
-                            <div class="price-row">
-                                <p class="property-price">₹3.5 L<small>/mo</small></p>
-                                <span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Title verified</span>
-                            </div>
-                            <h4 class="property-title">Commercial Office in Indiranagar</h4>
-                            <p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>Indiranagar, Bangalore</p>
-                            <ul class="property-specs"><li>Fit-out</li><li>4,500 sq.ft</li><li>5 parking</li></ul>
-                            <div class="card-actions">
-                                <a href="#contact" class="btn btn-teal btn-sm">Enquire</a>
-                                <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20interested%20in%20the%20Commercial%20Office%20in%20Indiranagar%20(%E2%82%B93.5%20Lakhs%2Fmo)." target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about the Indiranagar office on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="property-card" data-type="rent">
-                        <div class="property-image-box">
-                            <img src="prop_apartment.png" alt="Luxury apartment in Koramangala" class="property-img" loading="lazy" width="1024" height="1024">
-                            <span class="property-tag">For rent</span>
-                        </div>
-                        <div class="property-content">
-                            <div class="price-row">
-                                <p class="property-price">₹85,000<small>/mo</small></p>
-                                <span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Title verified</span>
-                            </div>
-                            <h4 class="property-title">Luxury Apartment in Koramangala</h4>
-                            <p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>Koramangala, Bangalore</p>
-                            <ul class="property-specs"><li>3 BHK</li><li>2,100 sq.ft</li><li>2 parking</li></ul>
-                            <div class="card-actions">
-                                <a href="#contact" class="btn btn-teal btn-sm">Enquire</a>
-                                <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20interested%20in%20the%20Luxury%20Apartment%20in%20Koramangala%20(%E2%82%B985%2C000%2Fmo)." target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about the Koramangala apartment on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="property-card" data-type="rent">
-                        <div class="property-image-box">
-                            <img src="prop_villa.png" alt="Executive villa in Whitefield" class="property-img" loading="lazy" width="1024" height="1024">
-                            <span class="property-tag">For rent</span>
-                        </div>
-                        <div class="property-content">
-                            <div class="price-row">
-                                <p class="property-price">₹1.2 L<small>/mo</small></p>
-                                <span class="verified-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Title verified</span>
-                            </div>
-                            <h4 class="property-title">Executive Villa in Whitefield</h4>
-                            <p class="property-location"><svg aria-hidden="true"><use href="#i-pin"/></svg>Whitefield, Bangalore</p>
-                            <ul class="property-specs"><li>4 BHK</li><li>3,500 sq.ft</li><li>3 parking</li></ul>
-                            <div class="card-actions">
-                                <a href="#contact" class="btn btn-teal btn-sm">Enquire</a>
-                                <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20interested%20in%20the%20Executive%20Villa%20in%20Whitefield%20(%E2%82%B91.2%20Lakhs%2Fmo)." target="_blank" rel="noopener noreferrer" class="btn-icon-wa" aria-label="Ask about the Whitefield villa on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-                            </div>
-                        </div>
-                    </article>
+                <div class="card-row rent-grid" id="js-rent-grid">
+                    
                     <aside class="request-card">
-                        <img src="sajjad_pasha.jpg" alt="" class="request-avatar" width="52" height="52" loading="lazy">
+                        <img src="sajjad_pasha-144.webp" alt="" class="request-avatar" width="52" height="52" loading="lazy">
                         <h4>Not seeing the right one?</h4>
                         <p>Tell Sajjad your budget and preferred area, and he'll send you a shortlist that fits.</p>
                         <a href="https://wa.me/919880011922?text=Hi%20Sajjad%2C%20I%27m%20looking%20for%20a%20property.%20Budget%3A%20%20Area%3A%20" target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-sm"><svg aria-hidden="true"><use href="#i-wa"/></svg>Send my requirement</a>
@@ -523,7 +426,7 @@
     <section id="about" class="section founder">
         <div class="container founder-grid">
             <div class="founder-photo">
-                <img src="sajjad_pasha.jpg" alt="Sajjad Pasha, founder of Corporate Estate Avenue" loading="lazy" width="768" height="1024">
+                <img src="sajjad_pasha-768.webp" alt="Sajjad Pasha, founder of Corporate Estate Avenue" loading="lazy" width="768" height="1024">
             </div>
             <div class="founder-copy">
                 <p class="kicker">About the founder</p>
@@ -583,59 +486,6 @@
     </section>
 
     <!-- 4. SERVICES -->
-    <section id="services" class="section services">
-        <div class="container services-grid">
-            <div class="services-intro">
-                <h2 class="section-title">One adviser for every property decision</h2>
-                <p class="section-lede">Whether you're moving in, moving out or managing from abroad, the same person handles it.</p>
-                <a href="#contact" class="btn btn-primary">Discuss your requirement</a>
-            </div>
-            <ul class="service-rows">
-                <li><a href="#buy-property" class="service-row">
-                    <span class="service-name">Buy</span>
-                    <span class="service-desc">A shortlist of checked homes that fit your budget and commute, plus negotiation and registration support.</span>
-                    <svg class="service-go" aria-hidden="true"><use href="#i-arrow"/></svg>
-                </a></li>
-                <li><a href="#sell-property" class="service-row">
-                    <span class="service-name">Sell</span>
-                    <span class="service-desc">Pricing advice, marketing through our agent network and direct buyer matching, handled to closing.</span>
-                    <svg class="service-go" aria-hidden="true"><use href="#i-arrow"/></svg>
-                </a></li>
-                <li><a href="#rent-property" class="service-row">
-                    <span class="service-name">Rent</span>
-                    <span class="service-desc">For tenants and owners: homes and offices, tenant checks, lease coordination and move-in.</span>
-                    <svg class="service-go" aria-hidden="true"><use href="#i-arrow"/></svg>
-                </a></li>
-                <li><a href="#contact" class="service-row">
-                    <span class="service-name">Property management</span>
-                    <span class="service-desc">Inspections and reports, maintenance and repairs, tenant coordination and rent collection.</span>
-                    <svg class="service-go" aria-hidden="true"><use href="#i-arrow"/></svg>
-                </a></li>
-                <li><a href="#contact" class="service-row">
-                    <span class="service-name">Corporate relocation</span>
-                    <span class="service-desc">Office search and fit-out coordination, plus housing for staff moving to Bangalore.</span>
-                    <svg class="service-go" aria-hidden="true"><use href="#i-arrow"/></svg>
-                </a></li>
-                <li><a href="#contact" class="service-row">
-                    <span class="service-name">Owner &amp; client representation</span>
-                    <span class="service-desc">Someone on your side of the table, whether you're the owner or the buyer, through negotiation and paperwork.</span>
-                    <svg class="service-go" aria-hidden="true"><use href="#i-arrow"/></svg>
-                </a></li>
-                <li><a href="#contact" class="service-row">
-                    <span class="service-name">NRI &amp; expat assistance</span>
-                    <span class="service-desc">Buy, rent out or look after a Bangalore property while you're overseas, with regular updates.</span>
-                    <svg class="service-go" aria-hidden="true"><use href="#i-arrow"/></svg>
-                </a></li>
-            </ul>
-        </div>
-        <div class="container areas">
-            <p class="areas-label">Areas we work in</p>
-            <ul class="areas-list">
-                <li>BTM Layout</li><li>Koramangala</li><li>HSR Layout</li><li>Indiranagar</li><li>Whitefield</li><li>Sarjapur Road</li><li>Electronic City</li><li>JP Nagar</li><li>Jayanagar</li><li>Bannerghatta Road</li><li>MG Road</li><li>Marathahalli</li><li>Hebbal</li><li>Yelahanka</li><li>Bellary Road</li>
-            </ul>
-        </div>
-    </section>
-
     <!-- 5. HOW IT WORKS -->
     <section id="how-it-works" class="section how">
         <div class="container">
@@ -940,6 +790,7 @@
                                 <input type="text" id="wiz-price" required placeholder="e.g. 2.5 Cr or 1.2 L / month">
                             </div>
                         </div>
+                        <label class="consent"><input type="checkbox" id="wiz-consent" required><span>I agree to the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>, and consent to Corporate Estate Avenue contacting me about this enquiry.</span></label>
                         <div class="wizard-review" id="js-wizard-review">
                             <h4 class="wizard-review-title">Review your listing</h4>
                             <div class="wizard-review-grid" id="js-wizard-review-content"></div>
@@ -964,7 +815,7 @@
             <aside class="direct-card">
                 <h2 class="section-title">Talk to Sajjad directly</h2>
                 <div class="direct-person">
-                    <img src="sajjad_pasha.jpg" alt="" width="72" height="72" loading="lazy">
+                    <img src="sajjad_pasha-144.webp" alt="" width="72" height="72" loading="lazy">
                     <div>
                         <strong>Sajjad Pasha</strong>
                         <span>Founder, Corporate Estate Avenue</span>
@@ -976,46 +827,94 @@
                 </div>
                 <ul class="direct-details">
                     <li><svg aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:sajjad@corporateestateavenue.com">sajjad@corporateestateavenue.com</a></li>
-                    <li><svg aria-hidden="true"><use href="#i-pin"/></svg><span>BTM Layout, Bangalore</span></li>
+                    <li><svg aria-hidden="true"><use href="#i-pin"/></svg><span>No. 5, 9th A Main, BTM Layout 1st Stage, Bangalore &ndash; 560029</span></li>
+                    <li><svg aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+919886811922">+91 98868 11922</a></li>
                 </ul>
             </aside>
 
-            <div class="contact-form-panel">
-                <h3 class="form-title">Or send a message</h3>
-                <p class="form-sub">Tell us what you need and Sajjad will get back to you.</p>
-                <form class="contact-form" id="js-contact-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Full name</label>
-                            <input type="text" id="name" required placeholder="Your name" autocomplete="name">
+            <div class="contact-form-panel enq">
+                <header class="enq-head">
+                    <p class="enq-eyebrow">Corporate Estate Avenue</p>
+                    <h3 class="form-title">Property Buyer Enquiry Form</h3>
+                    <p class="enq-tagline">Helping you find a home that matches your lifestyle.</p>
+                    <p class="enq-intro">Thank you for your interest in Corporate Estate Avenue. Kindly complete the following details to help us understand your property requirements and assist you in finding the right residential property.</p>
+                </header>
+                <form class="contact-form enq-body" id="js-contact-form">
+
+                    <section class="enq-step">
+                        <h4 class="enq-step-title"><span class="enq-step-num">1</span>Your details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full name</label>
+                                <input type="text" id="name" required placeholder="Your full name" autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Mobile number</label>
+                                <input type="tel" id="phone" required placeholder="+91 98765 43210" autocomplete="tel">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone <span class="optional">(optional)</span></label>
-                            <input type="tel" id="phone" placeholder="+91 98765 43210" autocomplete="tel">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">Email address</label>
                             <input type="email" id="email" required placeholder="you@example.com" autocomplete="email">
                         </div>
-                        <div class="form-group">
-                            <label for="service">I'm interested in</label>
-                            <select id="service">
-                                <option value="pm">Property Management</option>
-                                <option value="res">Residential Consulting</option>
-                                <option value="comm">Commercial Services</option>
-                                <option value="reloc">Corporate Relocation</option>
-                                <option value="owner">Owner Representation</option>
-                                <option value="client">Client Representation</option>
-                            </select>
+                    </section>
+
+                    <div class="enq-step" role="group" aria-labelledby="enq-g1">
+                        <h4 class="enq-step-title" id="enq-g1"><span class="enq-step-num">2</span>Property enquiry for</h4>
+                        <div class="choice-grid choice-grid--2">
+                            <label class="choice"><input type="radio" name="enq-for" value="Purchase" checked><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Purchase</span></label>
+                            <label class="choice"><input type="radio" name="enq-for" value="Rent"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Rent</span></label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" rows="4" placeholder="e.g. Looking for a 3 BHK near Koramangala, budget around ₹2 Cr"></textarea>
+
+                    <div class="enq-step" role="group" aria-labelledby="enq-g2">
+                        <h4 class="enq-step-title" id="enq-g2"><span class="enq-step-num">3</span>Preferred property type <span class="optional">(select all that apply)</span></h4>
+                        <div class="choice-grid choice-grid--3">
+                            <label class="choice"><input type="checkbox" name="enq-type" value="Flat"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Flat</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-type" value="Penthouse"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Penthouse</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-type" value="Villa"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Villa</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-type" value="Independent House"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Independent House</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-type" value="Row House"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Row House</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-type" value="Plot / Land"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>Plot / Land</span></label>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-submit">Send message</button>
+
+                    <div class="enq-step" role="group" aria-labelledby="enq-g3">
+                        <h4 class="enq-step-title" id="enq-g3"><span class="enq-step-num">4</span>Preferred configuration <span class="optional">(select all that apply)</span></h4>
+                        <div class="choice-grid choice-grid--4">
+                            <label class="choice"><input type="checkbox" name="enq-config" value="2 BHK"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>2 BHK</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-config" value="3 BHK"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>3 BHK</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-config" value="4 BHK"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>4 BHK</span></label>
+                            <label class="choice"><input type="checkbox" name="enq-config" value="5 BHK or Above"><span class="choice-box"><svg class="choice-tick" aria-hidden="true"><use href="#i-check"/></svg>5 BHK or Above</span></label>
+                        </div>
+                    </div>
+
+                    <section class="enq-step">
+                        <h4 class="enq-step-title"><span class="enq-step-num">5</span>Additional requirements</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="enq-location">Preferred location / area</label>
+                                <input type="text" id="enq-location" placeholder="e.g. Koramangala, HSR Layout">
+                            </div>
+                            <div class="form-group">
+                                <label for="enq-budget">Approximate budget</label>
+                                <input type="text" id="enq-budget" placeholder="e.g. ₹2 Cr, or ₹80,000 / month">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="enq-requirements">Specific requirements</label>
+                            <textarea id="enq-requirements" rows="4" placeholder="Type your specific requirements here, e.g. facing, floor, parking, furnishing"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="enq-project">Preferences on project</label>
+                            <textarea id="enq-project" rows="4" placeholder="Type your preferences on project here, e.g. builder, amenities, community"></textarea>
+                        </div>
+                    </section>
+
+                    <div class="enq-submit">
+                        <label class="consent"><input type="checkbox" id="contact-consent" required><span>I agree to the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>, and consent to Corporate Estate Avenue contacting me about this enquiry.</span></label>
+                        <button type="submit" class="btn btn-primary btn-submit">Send enquiry <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -1028,7 +927,7 @@
         <div class="container footer-grid">
             <div class="footer-brand">
                 <a href="#home" class="logo logo--light" aria-label="Corporate Estate Avenue, home">
-                    <img src="logo-white.png" alt="Corporate Estate Avenue" class="logo-img logo-img--footer" width="1196" height="611">
+                    <img src="logo-white-360.webp" alt="Corporate Estate Avenue" class="logo-img logo-img--footer" width="360" height="184">
                 </a>
                 <p>Founder-led property consultancy in BTM Layout, Bangalore. Buy, sell, rent and manage with one accountable adviser.</p>
             </div>
@@ -1039,23 +938,25 @@
                     <li><a href="#sell-property">Sell</a></li>
                     <li><a href="#rent-property">Rent</a></li>
                     <li><a href="#services">Property management</a></li>
+                    <li><a href="#" class="trigger-upload">List a property</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3>Services</h3>
                 <ul>
-                    <li><a href="#services">Corporate relocation</a></li>
-                    <li><a href="#services">Owner &amp; client representation</a></li>
-                    <li><a href="#services">NRI &amp; expat assistance</a></li>
-                    <li><a href="#how-it-works">How it works</a></li>
+                    <li><a href="/services/owner-representation">Owner Representation</a></li>
+                    <li><a href="/services/client-representation">Client Representation</a></li>
+                    <li><a href="/services/nri-expat">NRI &amp; Expat Services</a></li>
+                    <li><a href="/services/corporate-relocation">Corporate Relocation</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3>Contact</h3>
                 <ul>
                     <li><a href="tel:+919880011922">+91 98800 11922</a></li>
+                    <li><a href="tel:+919886811922">+91 98868 11922</a></li>
                     <li><a href="mailto:sajjad@corporateestateavenue.com">sajjad@corporateestateavenue.com</a></li>
-                    <li>BTM Layout, Bangalore</li>
+                    <li>No. 5, 9th A Main, BTM Layout 1st Stage, Bangalore &ndash; 560029</li>
                     <li class="footer-social">
                         <a href="https://wa.me/919880011922" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
                         <a href="https://instagram.com/corporateestateavenue" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-insta"/></svg></a>
@@ -1065,9 +966,18 @@
         </div>
         <div class="container footer-bottom">
             <span>&copy; 2026 Corporate Estate Avenue. All rights reserved.</span>
-            <a href="#" class="trigger-upload">List a property</a>
+            <span class="footer-credit">Designed &amp; developed by <a href="https://naazailabs.com" target="_blank" rel="noopener">Naaz AI Labs</a></span>
+            <nav class="footer-legal" aria-label="Legal">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms &amp; Conditions</a>
+            </nav>
         </div>
     </footer>
+
+    <!-- Floating WhatsApp button -->
+    <a href="https://wa.me/919880011922?text=Hi%20Corporate%20Estate%20Avenue%2C%20I%27d%20like%20to%20enquire%20about%20a%20property." class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+        <svg aria-hidden="true"><use href="#i-wa"/></svg>
+    </a>
 
     <!-- Mobile call / WhatsApp bar -->
     <div class="floating-social-box">
@@ -1098,6 +1008,14 @@
                     <div class="form-group">
                         <label for="uploader-email">Email</label>
                         <input type="email" id="uploader-email" required placeholder="you@example.com" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="uploader-listing-type">I want to</label>
+                        <select id="uploader-listing-type" required>
+                            <option value="Sale">Sell</option>
+                            <option value="Rent">Rent out</option>
+                            <option value="Lease">Lease</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="property-type">Property type</label>
@@ -1143,6 +1061,7 @@
                     <label for="property-description">Description <span class="optional">(optional)</span></label>
                     <textarea id="property-description" rows="3" placeholder="Parking, age of the building, what's nearby…"></textarea>
                 </div>
+                <label class="consent"><input type="checkbox" id="uploader-consent" required><span>I agree to the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>, and consent to Corporate Estate Avenue contacting me about this enquiry.</span></label>
                 <div class="modal-actions">
                     <button type="submit" class="btn btn-primary btn-submit-modal">Submit property</button>
                     <a href="https://wa.me/919880011922" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Ask on WhatsApp instead</a>
@@ -1151,6 +1070,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="nav.js?v=3"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>

@@ -2,13 +2,80 @@
   "version": 2,
   "builds": [
     {
-      "src": "*.{css,js,json,png,jpg,jpeg,gif,svg,ico,pdf}",
+      "src": "*.{png,jpg,jpeg,webp,gif,svg,ico,pdf}",
       "use": "@vercel/static"
     },
-    { "src": "server.js", "use": "@vercel/node" }
+    {
+      "src": "{styles.css,script.js,nav.js,admin.js,robots.txt,sitemap.xml}",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "services/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
-    { "src": "/(.*\\.(css|js|json|png|jpg|jpeg|gif|svg|ico|pdf))$", "dest": "/$1" },
-    { "src": "/(.*)", "dest": "server.js" }
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/(.*\\.(?:png|jpg|jpeg|webp|gif|svg|ico))",
+      "headers": {
+        "cache-control": "public, max-age=604800, stale-while-revalidate=86400"
+      },
+      "dest": "/$1"
+    },
+    {
+      "src": "/(styles\\.css|script\\.js|nav\\.js|admin\\.js)",
+      "headers": {
+        "cache-control": "public, max-age=3600, stale-while-revalidate=86400"
+      },
+      "dest": "/$1"
+    },
+    {
+      "src": "/(robots\\.txt|sitemap\\.xml)",
+      "dest": "/$1"
+    },
+    {
+      "src": "/",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "dest": "/index.html"
+    },
+    {
+      "src": "/(privacy|terms)",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "dest": "/$1.html"
+    },
+    {
+      "src": "/(index|admin|privacy|terms)\\.html",
+      "dest": "/$1.html"
+    },
+    {
+      "src": "/services/(owner-representation|client-representation|nri-expat|corporate-relocation)",
+      "dest": "/services/$1.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/health",
+      "schedule": "0 3 * * *"
+    }
   ]
 }
